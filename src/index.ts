@@ -13,6 +13,11 @@ if (!clientSecret) {
   throw new Error("STRAVA_CLIENT_SECRET is not defined");
 }
 
+const authCode = process.argv[2];
+if (!authCode) {
+  throw new Error("Authorization code is not provided. Please provide it as a command line argument.");
+}
+
 const link = new URL("https://www.strava.com/oauth/authorize");
 link.searchParams.set("client_id", clientID);
 link.searchParams.set("redirect_uri", "http://localhost:3000/callback");
