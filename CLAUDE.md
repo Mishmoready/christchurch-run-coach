@@ -1,0 +1,54 @@
+# Christchurch Run Coach
+
+A TypeScript app that syncs my Strava runs and writes short AI training notes, with checks that every number in a note matches the real data. It's a portfolio project for a junior automation engineering job, built to show APIs, webhooks, JSON, automation, checking AI output, tests, logging and Git. The name comes from the Christchurch marathon I'm training for.
+
+## How we work (important)
+
+- **I write all the code myself.** Claude guides and reviews; it does not write or edit project code. I need to own and explain every line in interviews.
+- Explain each step in small pieces: what we're doing, why, then a short example that uses *different* names or data, so I apply it myself.
+- I'm new to TypeScript and Git. Use plain language, exact commands and exact VS Code clicks.
+- Review by reading the **saved file on disk**. I sometimes forget to save (the ● on the tab).
+- Never ask me to paste secrets, tokens or Strava auth codes into chat, and never print them in logs.
+- Ask before creating files or running checks while I'm in the middle of something.
+
+## Setup on a new computer
+
+1. `git pull` (or `git clone https://github.com/Mishmoready/christchurch-run-coach.git`)
+2. `npm install`
+3. Create `.env` from `.env.example`. The values come from strava.com/settings/api. `.env` is git-ignored and must never be committed.
+4. If PowerShell blocks npm: `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+5. `npm run dev` runs `tsx --env-file=.env src/index.ts`
+
+Routine: `git pull` before starting work, then commit and push when finishing.
+
+## Tech
+
+- Node 26, TypeScript (strict), tsx, `"type": "module"`, tsconfig `"types": ["node"]`
+- Strava API app: callback domain `localhost`, redirect URI `http://localhost:3000/callback`, scope `activity:read_all` (read-only, least privilege)
+
+## Plan
+
+1. ✅ Project setup
+2. ✅ Register Strava API app, secrets in `.env`
+3. ⏳ OAuth: get an access token
+   - ✅ 3a: load `.env` with fail-fast checks
+   - ✅ 3b: build the authorize link (tested: Strava returns `code=` and `scope=read,activity:read_all`)
+   - ⏳ 3c: swap the code for a token (see "Where I'm up to")
+   - then: save tokens to a git-ignored file, refresh with `grant_type=refresh_token`
+4. Fetch recent runs from the API
+5. Save them, keyed by Strava activity ID (upsert, no duplicates)
+6. Receive Strava's webhook when I finish a run (needs a tunnel for local testing)
+7. AI training note, using a fake model first, plus an evaluation that checks every number in the note against the data
+8. Real AI model, only with a spending limit
+9. Tests, logging, README
+
+## Where I'm up to (3c)
+
+**Piece 1 (in progress):** `authCode` comes from `process.argv[2]` (run as `npm run dev -- <code>`). Currently `src/index.ts` *throws* when there's no code, so the link code below it never runs. Next:
+- Remove the `throw`, and move the link-building lines (`const link` through its `console.log`) inside `if (!authCode) { }`.
+- Add `else { }` with a placeholder log ("Got a code, ready to swap it for a token").
+- Test: `npm run dev` prints the link; `npm run dev -- hello` prints the placeholder.
+
+**Piece 2 (next):** in the `else`, POST to `https://www.strava.com/oauth/token` with `fetch`. The body holds `client_id`, `client_secret`, `code` and `grant_type: "authorization_code"`. Check `response.ok` and include `response.text()` in the error. Log only `athlete.firstname` and `expires_at`, never the tokens. Test with a fresh code, then reuse the same code and expect Strava to reject it (codes are single-use).
+
+**Small tidy-ups suggested:** rename `clientID` to `clientId` (camelCase); clearer error messages that say "missing from .env".
