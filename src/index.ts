@@ -15,13 +15,13 @@ if (!clientSecret) {
 
 const authCode = process.argv[2];
 if (!authCode) {
-  throw new Error("Authorization code is not provided. Please provide it as a command line argument.");
+  const link = new URL("https://www.strava.com/oauth/authorize");
+  link.searchParams.set("client_id", clientID);
+  link.searchParams.set("redirect_uri", "http://localhost:3000/callback");
+  link.searchParams.set("response_type", "code");
+  link.searchParams.set("scope", "activity:read_all");
+  link.searchParams.set("approval_prompt", "force");
+  console.log("Authorization link:", link.toString());
+} else {
+  console.log("Got a code, swap for a token" );
 }
-
-const link = new URL("https://www.strava.com/oauth/authorize");
-link.searchParams.set("client_id", clientID);
-link.searchParams.set("redirect_uri", "http://localhost:3000/callback");
-link.searchParams.set("response_type", "code");
-link.searchParams.set("scope", "activity:read_all");
-link.searchParams.set("approval_prompt", "force");
-console.log("Authorization link:", link.toString());
