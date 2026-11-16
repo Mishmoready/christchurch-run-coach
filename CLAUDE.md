@@ -10,6 +10,7 @@ A TypeScript app that syncs my Strava runs and writes short AI training notes, w
 - Review by reading the **saved file on disk**. I sometimes forget to save (the ● on the tab).
 - Never ask me to paste secrets, tokens or Strava auth codes into chat, and never print them in logs.
 - Ask before creating files or running checks while I'm in the middle of something.
+- **Keep [LEARNING.md](LEARNING.md) up to date.** When a new concept, command or gotcha comes up, add it to the right section in plain words with a short example (no project solutions). Claude may edit LEARNING.md and CLAUDE.md without asking; they're notes, not code.
 
 ## Setup on a new computer
 
@@ -44,11 +45,8 @@ Routine: `git pull` before starting work, then commit and push when finishing.
 
 ## Where I'm up to (3c)
 
-**Piece 1 (in progress):** `authCode` comes from `process.argv[2]` (run as `npm run dev -- <code>`). Currently `src/index.ts` *throws* when there's no code, so the link code below it never runs. Next:
-- Remove the `throw`, and move the link-building lines (`const link` through its `console.log`) inside `if (!authCode) { }`.
-- Add `else { }` with a placeholder log ("Got a code, ready to swap it for a token").
-- Test: `npm run dev` prints the link; `npm run dev -- hello` prints the placeholder.
+**Piece 1 ✅:** `authCode` comes from `process.argv[2]` (run as `npm run dev -- <code>`). No code → prints the authorize link; code given → `else` branch (currently a placeholder log).
 
-**Piece 2 (next):** in the `else`, POST to `https://www.strava.com/oauth/token` with `fetch`. The body holds `client_id`, `client_secret`, `code` and `grant_type: "authorization_code"`. Check `response.ok` and include `response.text()` in the error. Log only `athlete.firstname` and `expires_at`, never the tokens. Test with a fresh code, then reuse the same code and expect Strava to reject it (codes are single-use).
+**Piece 2 (in progress):** replace the placeholder in the `else`: in the `else`, POST to `https://www.strava.com/oauth/token` with `fetch`. The body holds `client_id`, `client_secret`, `code` and `grant_type: "authorization_code"`. Check `response.ok` and include `response.text()` in the error. Log only `athlete.firstname` and `expires_at`, never the tokens. Test with a fresh code, then reuse the same code and expect Strava to reject it (codes are single-use).
 
 **Small tidy-ups suggested:** rename `clientID` to `clientId` (camelCase); clearer error messages that say "missing from .env".
