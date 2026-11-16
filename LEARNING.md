@@ -62,6 +62,7 @@ What I've learned building the Christchurch Run Coach, in plain words, to look b
 ## 5. Secrets and `.env`
 
 - **`.env`** holds secrets (Strava Client ID and Secret). It's listed in `.gitignore`, so it never goes to GitHub. Each computer needs its own copy.
+- **The names inside `.env` aren't usable in code directly.** `STRAVA_CLIENT_ID` only exists as `process.env.STRAVA_CLIENT_ID`. Store it in a constant (like `clientId`) and use the constant everywhere after that. Using the bare `.env` name gives "Cannot find name".
 - **`.env.example`** has the same names with no values, and *is* committed. It shows others (or an interviewer) which settings the app needs.
 - **`tsx --env-file=.env`** loads `.env` into `process.env` when the program starts, with no extra library.
 - Never paste secrets, tokens or auth codes into chats, screenshots, commits or logs. If a secret leaks, reset it on strava.com/settings/api.
@@ -133,6 +134,7 @@ if (!response.ok) {
 
 const data = await response.json();
 ```
+- **The shape:** `fetch( WHERE , { HOW } );`. WHERE is the URL; HOW is an options box with `method`, `headers` and `body`. Every `(` and `{` needs its partner: click next to one and VS Code highlights its match. A red squiggle on a closing bracket usually means something above it isn't closed yet.
 - **POST** sends data to the server; **GET** (the default) just asks for data.
 - **`await`** waits for the network reply before carrying on.
 - **`JSON.stringify`** turns an object into JSON text, the format APIs exchange; `response.json()` turns the reply back into an object.

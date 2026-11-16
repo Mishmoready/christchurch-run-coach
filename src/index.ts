@@ -23,5 +23,14 @@ if (!authCode) {
   link.searchParams.set("approval_prompt", "force");
   console.log("Authorization link:", link.toString());
 } else {
-  console.log("Got a code, swap for a token" );
+  const response = await fetch("https://www.strava.com/oauth/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      client_id: clientID,
+      client_secret: clientSecret,
+      code: authCode,
+      grant_type: "authorization_code",
+    }),
+  });
 }
