@@ -38,4 +38,7 @@ if (!authCode) {
       `Request failed: ${response.status} ${await response.text()}`,
     );
   }
+  const data = await response.json();
+  console.log("Athlete:", data.athlete.firstname);
+  console.log("Token expires at:", data.expires_at);
 }

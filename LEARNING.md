@@ -20,6 +20,8 @@ What I've learned building the Christchurch Run Coach, in plain words, to look b
   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
   ```
   This lets local scripts run; scripts downloaded from the internet still need a signature.
+- **`&` is a special symbol in PowerShell.** A command containing a bare `&` (like a pasted bit of URL) fails with "The ampersand (&) character is not allowed". Paste only what you need, or wrap the value in double quotes: `npm run dev -- "value"`.
+- **Double-click selects one "word"**, which is handy for grabbing just a code from an address bar. Check the highlight before copying.
 
 ## 3. Setting up a TypeScript project
 
@@ -143,7 +145,15 @@ const data = await response.json();
 - **Status codes:** 200 = OK, 400 = bad request (something I sent was wrong), 401 = not allowed (bad or missing credentials), 404 = not found, 500 = the server broke.
 - **Test the failure path on purpose.** Sending a fake value (`npm run dev -- hello`) proved the `response.ok` check works without needing a real code. Strava answered `400` with `"field":"code","code":"invalid"`, which pinpoints the problem.
 
-## 11. Watch what suggestions add
+## 11. Dates and Unix timestamps
+
+- APIs often send times as a **Unix timestamp**: the number of **seconds** since 1 January 1970 (UTC). Example: Strava's `expires_at: 1794917193` = 1:06 am, 18 Nov 2026 NZ time.
+- JavaScript's `Date` uses **milliseconds**, so multiply by 1000:
+  ```ts
+  console.log(new Date(1700000000 * 1000).toLocaleString());
+  ```
+
+## 12. Watch what suggestions add
 
 - Accepting an autocomplete or Copilot suggestion can quietly add an `import` line at the top of the file (for example, `import { error } from "node:console";`). If nothing uses it, delete it. Every line should be one I can explain.
 
