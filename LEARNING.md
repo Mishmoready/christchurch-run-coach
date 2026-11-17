@@ -140,6 +140,12 @@ const data = await response.json();
 - **`JSON.stringify`** turns an object into JSON text, the format APIs exchange; `response.json()` turns the reply back into an object.
 - **`response.ok`** is false on errors (like 400). Including `response.text()` in the error shows the server's actual reason, which makes debugging much easier.
 - Only log safe fields (like a first name), never tokens.
+- **Status codes:** 200 = OK, 400 = bad request (something I sent was wrong), 401 = not allowed (bad or missing credentials), 404 = not found, 500 = the server broke.
+- **Test the failure path on purpose.** Sending a fake value (`npm run dev -- hello`) proved the `response.ok` check works without needing a real code. Strava answered `400` with `"field":"code","code":"invalid"`, which pinpoints the problem.
+
+## 11. Watch what suggestions add
+
+- Accepting an autocomplete or Copilot suggestion can quietly add an `import` line at the top of the file (for example, `import { error } from "node:console";`). If nothing uses it, delete it. Every line should be one I can explain.
 
 ---
 

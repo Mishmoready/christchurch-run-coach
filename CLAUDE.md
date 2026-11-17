@@ -49,4 +49,8 @@ Routine: `git pull` before starting work, then commit and push when finishing.
 
 **Piece 2 (in progress):** replace the placeholder in the `else`: in the `else`, POST to `https://www.strava.com/oauth/token` with `fetch`. The body holds `client_id`, `client_secret`, `code` and `grant_type: "authorization_code"`. Check `response.ok` and include `response.text()` in the error. Log only `athlete.firstname` and `expires_at`, never the tokens. Test with a fresh code, then reuse the same code and expect Strava to reject it (codes are single-use).
 
+Part A (the `fetch` POST) is written and type-checks. Next: Part B (`if (!response.ok) throw ...`) and Part C (`const data = await response.json()`, log firstname and expires_at).
+
+**Plan agreed 2026-11-17:** finish step 3 (token exchange, then save tokens to a git-ignored file and refresh them), then write a short README describing the project and plan, then apply for the job with the repo as "in progress". A cover letter is still needed (separate from this repo).
+
 **Small tidy-ups suggested:** rename `clientID` to `clientId` (camelCase); clearer error messages that say "missing from .env".

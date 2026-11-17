@@ -33,4 +33,9 @@ if (!authCode) {
       grant_type: "authorization_code",
     }),
   });
+  if (!response.ok) {
+    throw new Error(
+      `Request failed: ${response.status} ${await response.text()}`,
+    );
+  }
 }
