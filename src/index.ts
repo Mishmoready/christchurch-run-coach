@@ -5,7 +5,6 @@ const clientID = process.env.STRAVA_CLIENT_ID;
 if (!clientID) {
   throw new Error("STRAVA_CLIENT_ID is not defined");
 }
-console.log("ClientID:", clientID);
 
 const clientSecret = process.env.STRAVA_CLIENT_SECRET;
 
