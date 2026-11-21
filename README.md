@@ -4,7 +4,7 @@ Christchurch Run Coach is a TypeScript app I'm building to help me train for my 
 
 ## Why I built it
 
-I've been a big fan of running ever since I was at my heaviest, at 180 kg. Getting fit and healthy is a big part of my life, and running is one of the main parts of that journey.
+I've been a big fan of running ever since I was at my heaviest, at 170 kg. Getting fit and healthy is a big part of my life, and running is one of the main parts of that journey.
 
 My next goal is the Christchurch Marathon on 18 April 2027. Strava shows me the numbers, but I wanted something that explains them in plain words and keeps my progress in check.
 
