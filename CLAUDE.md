@@ -46,6 +46,8 @@ Routine: `git pull` before starting work, then commit and push when finishing.
 
 ## Where I'm up to
 
+**Shelved 2026-11-21** to build other projects for a while. Pick up again at 3d piece 2 below.
+
 **Done:** README written, git history checked for secrets (clean) and repo made public (2026-11-18). 3d piece 1: `tokens.json` added to `.gitignore` and committed (2026-11-20); `git check-ignore -v tokens.json` confirms it.
 
 **Next: carry on with 3d.** Piece 2: after a successful exchange, write `access_token`, `refresh_token` and `expires_at` (not the whole response) to `tokens.json` with `writeFile` from `node:fs/promises` and `JSON.stringify(..., null, 2)`. Piece 3: on the next run, read the tokens back so no new code is needed. Then 3e: refresh.
