@@ -1,10 +1,10 @@
 # Christchurch Run Coach
 
-A TypeScript app that syncs my Strava runs and writes short AI training notes, with checks that every number in a note matches the real data. It's a portfolio project for a junior automation engineering job, built to show APIs, webhooks, JSON, automation, checking AI output, tests, logging and Git. The name comes from the Christchurch marathon I'm training for.
+A TypeScript app that syncs my Strava runs and writes short AI training notes, with checks that every number in a note matches the real data. It's a learning and portfolio project, built to practise APIs, webhooks, JSON, automation, checking AI output, tests, logging and Git. The name comes from the Christchurch marathon I'm training for.
 
 ## How we work (important)
 
-- **I write all the code myself.** Claude guides and reviews; it does not write or edit project code. I need to own and explain every line in interviews.
+- **I write all the code myself.** Claude guides and reviews; it does not write or edit project code. I need to own and be able to explain every line.
 - Explain each step in small pieces: what we're doing, why, then a short example that uses *different* names or data, so I apply it myself.
 - I'm new to TypeScript and Git. Use plain language, exact commands and exact VS Code clicks.
 - Review by reading the **saved file on disk**. I sometimes forget to save (the ● on the tab).
@@ -46,10 +46,10 @@ Routine: `git pull` before starting work, then commit and push when finishing.
 
 ## Where I'm up to
 
-**Done:** README written (2026-11-18). 3d piece 1: `tokens.json` added to `.gitignore` and committed (2026-11-20); `git check-ignore -v tokens.json` confirms it.
+**Done:** README written, git history checked for secrets (clean) and repo made public (2026-11-18). 3d piece 1: `tokens.json` added to `.gitignore` and committed (2026-11-20); `git check-ignore -v tokens.json` confirms it.
 
-**Next: choose one** (not decided yet):
-- **A. Carry on with 3d.** Piece 2: after a successful exchange, write `access_token`, `refresh_token` and `expires_at` (not the whole response) to `tokens.json` with `writeFile` from `node:fs/promises` and `JSON.stringify(..., null, 2)`. Piece 3: on the next run, read the tokens back so no new code is needed. Then 3e: refresh.
-- **B. Get ready to apply** (the plan agreed 2026-11-17 said tokens could wait): check git history for secrets → make the repo public → cover letter (separate from this repo) → apply with the repo as "in progress".
+**Next: carry on with 3d.** Piece 2: after a successful exchange, write `access_token`, `refresh_token` and `expires_at` (not the whole response) to `tokens.json` with `writeFile` from `node:fs/promises` and `JSON.stringify(..., null, 2)`. Piece 3: on the next run, read the tokens back so no new code is needed. Then 3e: refresh.
+
+**README upkeep:** when a planned feature starts working, move it from "What's next" to "What works so far", and keep present tense only for things that work.
 
 **Small tidy-ups suggested:** rename `clientID` to `clientId` (camelCase); clearer error messages that say "missing from .env"; optionally show `expires_at` as a readable date with `new Date(x * 1000)`.

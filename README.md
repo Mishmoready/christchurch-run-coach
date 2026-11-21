@@ -1,6 +1,6 @@
 # Christchurch Run Coach
 
-Christchurch Run Coach is a TypeScript app I'm building to help me train for my marathon. It connects to Strava and will pull in my runs automatically. When I finish a run, Strava will tell the app straight away, and the app will use AI to write a short training note: how the run went and how I'm tracking towards my goal. Before I see the note, the app checks every number in it against my real data, so the AI can't make anything up.
+Christchurch Run Coach is a TypeScript app I'm building to help me train for my marathon. It connects to Strava and will pull in my runs automatically. When I finish a run, Strava will tell the app straight away, and the app will use AI to write a short training note: how the run went and how I'm tracking towards my goal. Before I see the note, the app will check every number in it against my real data, so the AI can't make anything up.
 
 ## Why I built it
 
